@@ -17,6 +17,11 @@
         width: 800px;
         height: 600px;
       }
+
+      #game-container2 {
+        width: 800px;
+        height: 600px;
+      }
     </style>
   </head>
   <body>
@@ -29,8 +34,22 @@
         let player = ruffle.createPlayer();
         let container = document.getElementById("game-container");
         container.appendChild(player);
-        player.load("./games/shu.swf");
+        player.load("./shoo.swf");
       });
     </script>
+
+
+<div id="game-container2"></div>
+
+<script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let ruffle = window.RufflePlayer.newest();
+    let player = ruffle.createPlayer();
+    let container = document.getElementById("game-container");
+    container.appendChild(player);
+    player.load("./4000.swf");
+  });
+</script>
   </body>
 </html>
