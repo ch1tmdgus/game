@@ -1,68 +1,36 @@
 <!DOCTYPE html>
-<html>
-<head>
-	<title>Video Downloader</title>
-	<style>
-		body {
-			font-family: Arial, sans-serif;
-			text-align: center;
-		}
-		.container {
-			width: 80%;
-			margin: 40px auto;
-			padding: 20px;
-			background-color: #f9f9f9;
-			border: 1px solid #ccc;
-			border-radius: 10px;
-			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		}
-		.input-field {
-			width: 100%;
-			padding: 10px;
-			margin-bottom: 20px;
-			border: 1px solid #ccc;
-		}
-		.button {
-			background-color: #4CAF50;
-			color: #fff;
-			padding: 10px 20px;
-			border: none;
-			border-radius: 5px;
-			cursor: pointer;
-		}
-		.button:hover {
-			background-color: #3e8e41;
-		}
-	</style>
-</head>
-<body>
-	<div class="container">
-		<h1>Video Downloader</h1>
-		<p>Enter the URL of the YouTube or Instagram video you want to download:</p>
-		<input type="text" id="video-url" class="input-field" placeholder="https://www.youtube.com/watch?v=VIDEO_ID or https://www.instagram.com/p/POST_ID/">
-		<button class="button" id="download-button">Download Video</button>
-		<div id="download-status"></div>
-	</div>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Flash Game</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #f0f0f0;
+      }
+      #game-container {
+        width: 800px;
+        height: 600px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="game-container"></div>
 
-	<script>
-		// Add event listener to the download button
-		document.getElementById("download-button").addEventListener("click", function() {
-			// Get the video URL from the input field
-			var videoUrl = document.getElementById("video-url").value;
-			// Check if the URL is valid
-			if (videoUrl.indexOf("https://www.youtube.com/watch?v=") === 0 || videoUrl.indexOf("https://www.instagram.com/p/") === 0) {
-				// Download the video (this is where you would implement the video download functionality)
-				downloadVideo(videoUrl);
-			} else {
-				alert("Invalid URL");
-			}
-		});
-
-		// Function to download the video (this is a placeholder, you need to implement the actual download functionality)
-		function downloadVideo(videoUrl) {
-			// TO DO: implement video download functionality here
-			document.getElementById("download-status").innerHTML = "Downloading video...";
-		}
-	</script>
-</body>
+    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        let ruffle = window.RufflePlayer.newest();
+        let player = ruffle.createPlayer();
+        let container = document.getElementById("game-container");
+        container.appendChild(player);
+        player.load("shoo.swf");
+      });
+    </script>
+  </body>
 </html>
