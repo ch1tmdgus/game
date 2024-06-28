@@ -63,7 +63,7 @@
     <h1>게임을 선택해주세요</h1>
     <select onchange="location.href=this.value">
       <option value="./game/shu.html">슈의 라면가게</option>
-      <option value="./game/prison.html">감옥탈출</option>
+      <option value="../game/prison.html">감옥탈출</option>
     </select>
 
     <div class="guestbook">
@@ -161,7 +161,7 @@
 
       async function deleteEntry(id) {
         const password = prompt("비밀번호를 입력해주세요:");
-        if (password === "1234") {
+        if (password === "0153") {
           if (confirm("방명록을 삭제하시겠습니까?")) {
             await database.ref('entries/' + id).remove();
             console.log('Entry deleted:', id);
