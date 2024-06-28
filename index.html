@@ -63,7 +63,7 @@
     <h1>게임을 선택해주세요</h1>
     <select onchange="location.href=this.value">
       <option value="./game/shu.html">슈의 라면가게</option>
-      <option value="../game/prison.html">감옥탈출</option>
+      <option value="./game/prison.html">감옥탈출</option>
     </select>
 
     <div class="guestbook">
@@ -98,7 +98,7 @@
         projectId: "game-a9bcb",
         storageBucket: "game-a9bcb.appspot.com",
         messagingSenderId: "583035747010",
-        appId: "1:583035747010:web:09d05910022fde8e2dd95b"
+        appId: "1:583035747010:web:09d05910022fde8e2dd95b",
       };
 
       // Initialize Firebase
@@ -113,19 +113,44 @@
       }
 
       async function loadEntries() {
-        const entriesRef = database.ref('entries');
-        entriesRef.on('value', (snapshot) => {
+        const entriesRef = database.ref("entries");
+        entriesRef.on("value", (snapshot) => {
           const entries = snapshot.val();
-          const entriesContainer = document.getElementById('entries');
-          entriesContainer.innerHTML = '';
+          const entriesContainer = document.getElementById("entries");
+          entriesContainer.innerHTML = "";
           if (entries) {
             for (let id in entries) {
               const entry = entries[id];
-              const entryElement = document.createElement('div');
-              entryElement.className = 'guestbook-entry';
+              const entryElement = document.createElement("div");
+              entryElement.className = "guestbook-entry";
               entryElement.innerHTML = `<strong>${entry.name}</strong>: ${entry.message}`;
-              entryElement.addEventListener('contextmenu', (e) => {
+              entryElement.addEventListener("contextmenu", (e) => {
                 e.preventDefault();
+                deleteEntry(id);
+              });
+              entriesContainer.appendChild(entryElement);
+            }
+          }
+        });
+      }
+
+      async function loadEntries() {
+        const entriesRef = database.ref("entries");
+        entriesRef.on("value", (snapshot) => {
+          const entries = snapshot.val();
+          const entriesContainer = document.getElementById("entries");
+          entriesContainer.innerHTML = "";
+          if (entries) {
+            for (let id in entries) {
+              const entry = entries[id];
+              const entryElement = document.createElement("div");
+              entryElement.className = "guestbook-entry";
+              entryElement.innerHTML = `<strong>${entry.name}</strong>: ${entry.message}`;
+              entryElement.addEventListener("contextmenu", (e) => {
+                e.preventDefault();
+                deleteEntry(id);
+              });
+              entryElement.addEventListener("dblclick", () => {
                 deleteEntry(id);
               });
               entriesContainer.appendChild(entryElement);
@@ -143,16 +168,16 @@
             const entry = {
               name,
               message,
-              timestamp: Date.now()
+              timestamp: Date.now(),
             };
 
-            const newEntryRef = database.ref('entries').push();
+            const newEntryRef = database.ref("entries").push();
             await newEntryRef.set(entry);
 
             document.getElementById("name").value = "";
             document.getElementById("message").value = "";
 
-            console.log('Entry added:', entry);
+            console.log("Entry added:", entry);
           }
         } else {
           alert("이름과 메시지를 모두 입력해주세요.");
@@ -161,17 +186,17 @@
 
       async function deleteEntry(id) {
         const password = prompt("비밀번호를 입력해주세요:");
-        if (password === "0153") {
+        if (password === "1234") {
           if (confirm("방명록을 삭제하시겠습니까?")) {
-            await database.ref('entries/' + id).remove();
-            console.log('Entry deleted:', id);
+            await database.ref("entries/" + id).remove();
+            console.log("Entry deleted:", id);
           }
         } else {
           alert("비밀번호가 틀렸습니다.");
         }
       }
 
-      document.addEventListener('DOMContentLoaded', loadEntries);
+      document.addEventListener("DOMContentLoaded", loadEntries);
     </script>
   </body>
 </html>
