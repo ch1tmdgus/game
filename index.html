@@ -26,12 +26,12 @@
         transition: color 0.5s;
       }
       .github-logo {
-        position: absolute;
+        position: fixed;
         bottom: 10px;
         left: 10px;
       }
       .dark-mode-toggle {
-        position: absolute;
+        position: fixed;
         bottom: 10px;
         right: 10px;
         cursor: pointer;
@@ -42,8 +42,9 @@
       }
       .guestbook {
         margin-top: 50px;
-        text-align: left;
+        text-align: center;
         display: inline-block;
+        transition: color 0.5s;
       }
       .guestbook-entry {
         border-bottom: 1px solid #ccc;
@@ -134,19 +135,21 @@
         const message = document.getElementById("message").value;
 
         if (name && message) {
-          const entry = {
-            name,
-            message,
-            timestamp: Date.now()
-          };
+          if (confirm("방명록을 등록하시겠습니까?")) {
+            const entry = {
+              name,
+              message,
+              timestamp: Date.now()
+            };
 
-          const newEntryRef = database.ref('entries').push();
-          await newEntryRef.set(entry);
+            const newEntryRef = database.ref('entries').push();
+            await newEntryRef.set(entry);
 
-          document.getElementById("name").value = "";
-          document.getElementById("message").value = "";
+            document.getElementById("name").value = "";
+            document.getElementById("message").value = "";
 
-          console.log('Entry added:', entry);
+            console.log('Entry added:', entry);
+          }
         } else {
           alert("이름과 메시지를 모두 입력해주세요.");
         }
