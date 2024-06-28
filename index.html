@@ -124,6 +124,10 @@
               const entryElement = document.createElement('div');
               entryElement.className = 'guestbook-entry';
               entryElement.innerHTML = `<strong>${entry.name}</strong>: ${entry.message}`;
+              entryElement.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                deleteEntry(id);
+              });
               entriesContainer.appendChild(entryElement);
             }
           }
@@ -152,6 +156,18 @@
           }
         } else {
           alert("이름과 메시지를 모두 입력해주세요.");
+        }
+      }
+
+      async function deleteEntry(id) {
+        const password = prompt("비밀번호를 입력해주세요:");
+        if (password === "1234") {
+          if (confirm("방명록을 삭제하시겠습니까?")) {
+            await database.ref('entries/' + id).remove();
+            console.log('Entry deleted:', id);
+          }
+        } else {
+          alert("비밀번호가 틀렸습니다.");
         }
       }
 
